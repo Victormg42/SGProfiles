@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -10,13 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 </head>
-
+<?php
+include '../controller/sessionController.php';
+?>
 <body>
     <!--Menu de navegación-->
     <ul>
-        <li><a href="#home">@username</a></li>
-        <li><a href="#news" onclick="openModal()">+</a></li>
-        <li><a href="#contact">logout</a></li>
+        <li><a><?php echo $_SESSION['user']->getEmail() ?></a></li>
+        <li><a onclick="openModal()">+</a></li>
+        <li><a href="../view/login.php">logout</a></li>
     </ul>
 
     <!-- The Modal -->

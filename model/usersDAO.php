@@ -3,6 +3,8 @@ require_once 'users.php';
 class UsersDao{
         private $pdo;
     public function __construct(){
+        include '../model/connection.php';
+        $this->pdo=$pdo;
     }
 
     public function login($user){
@@ -26,31 +28,6 @@ class UsersDao{
         }else {
             return false;
         }
-    }
-
-    public function insertar(){
-        include '../model/connection.php';
-        try {
-        //Comienza la transacción
-            $pdo->beginTransaction();
-            $query="INSERT INTO `users` (`id`, `name`, `surname` , `email`, `password`, `status`, `profile`) VALUES (NULL,?,?,?,?,'1','1');";
-            $sentencia=$pdo->prepare($query);
-            $nom=$_POST['nombre'];
-            $ape=$_POST['apellido']; 
-            $email=$_POST['email']; 
-            $pass=md5($_POST['password']);
-            $sentencia->bindParam(1,$nom);
-            $sentencia->bindParam(2,$ape);
-            $sentencia->bindParam(3,$email);
-            $sentencia->bindParam(4,$pass);
-            $sentencia->execute();
-            $pdo->commit();
-            header("Location: ../view/login.php");
-        } catch (Exception $ex) {
-            /* Reconocer un error y no hacer los cambios */
-            $pdo->rollback();
-            echo $ex->getMessage();
-        }
-    }    
+    }   
 }   
 ?>

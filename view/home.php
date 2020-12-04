@@ -41,10 +41,13 @@ include '../controller/sessionController.php';
     </div>
 
     <!--Galería-->
-    <div class="row">
-        <div class="three-column">
-            <img src="../public/sol.jpg" alt="">
-        </div>
+    <div class="row padding-20"></div>
+    <div class="row padding-lat">
+        <?php
+            require_once '../model/postsDAO.php';
+            $posts = new PostsDao();
+            $posts->mostrar();
+        ?>
     </div>
 </body>
 

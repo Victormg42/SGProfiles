@@ -18,7 +18,7 @@ include '../controller/sessionController.php';
         <div class="div2">
         <li><a><?php echo $_SESSION['user']->getEmail() ?></a></li>
         <li><a onclick="openModal()">+</a></li>
-        <li><a>Administrar Usuarios</a></li>
+        <li><a href="adminUsers.php">Administrar Usuarios</a></li>
         <li><a href="../view/login.php">logout</a></li>
         </div>
     </ul>

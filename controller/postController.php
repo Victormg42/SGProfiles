@@ -9,5 +9,5 @@ if (move_uploaded_file($_FILES['img']['tmp_name'], '../'.$path)) {
     $sentencia->bindParam(1,$title);
     $sentencia->bindParam(2,$path);
     $sentencia->execute();
-    header("Location: ../view/home.html");
+    header("Location: ../view/home.php");
 }

@@ -27,8 +27,8 @@
 
   <?php
   if (isset($_POST['submit'])){
-    require_once '../model/usersDAO.php';
-    $users = new UsersDao();
+    require_once '../model/postsDAO.php';
+    $users = new PostsDao();
     $users->insertar();
   }
   ?>

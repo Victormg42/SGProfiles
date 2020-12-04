@@ -4,14 +4,13 @@ require_once '../model/connection.php';
 require_once '../controller/sessionController.php';
 
 // Recogemos el valor del puesto de trabajo desde la clase
-$status = $_SESSION['user']->getStatus();
+$profile = $_SESSION['user']->getProfile();
 
-if ($status == 1) {
-    header('Location: ../view/home.html');
-} else if ($status == 3) {
-    header('Location: ../view/home.html');
+if ($profile == '1') {
+    header('Location: ../view/home.php');
+} else if ($profile == '3') {
+    header('Location: ../view/homeAdmin.php');
 } else {
-    print_r($status);
-    //header('Location: ../view/login.php');
+    header('Location: ../view/login.php');
 }
 ?>

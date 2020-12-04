@@ -20,7 +20,7 @@ class UsersDao{
         if(!empty($numRow) && $numRow==1){
             $user->setEmail($result['email']);
             $user->setId($result['id']);
-            $user->setStatus($result['status']);
+            $user->setProfile($result['profile']);
             //Creamos la sesion
             session_start();
             $_SESSION['user']=$user;

@@ -13,7 +13,7 @@
         
         <p><input type="email" id="email" name="email" placeholder="Email"></p>
     
-        <p><input type="password" id="password" name="password" placeholder="Contraseña"></p>
+        <p><input type="password" name="password" placeholder="Contraseña"></p>
 
         <input style="margin-bottom: 10px;" type="submit" value="Iniciar Sesión">
 

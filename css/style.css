@@ -30,6 +30,11 @@ li {
     width: 33.33%;
 }
 
+.div2 li {
+    float: left;
+    width: 24.24%;
+}
+
 li a {
     display: block;
     color: black;

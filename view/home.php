@@ -9,10 +9,11 @@
     <script src="../js/code.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    
 </head>
-<?php
-include '../controller/sessionController.php';
-?>
+    <?php
+        include '../controller/sessionController.php';
+    ?>
 <body>
     <!--Menu de navegación-->
     <ul>
@@ -31,11 +32,19 @@ include '../controller/sessionController.php';
                 <h2>Crear posts</h2>
             </div>
             <div class="modal-body">
-                <form action="../controller/postController.php" method="POST" enctype="multipart/form-data">
+                <form action="home.php" method="POST" enctype="multipart/form-data">
                     <input type="text" id="title" name="title" placeholder="título de la foto..">
                     <input type="file" id="img" name="img">
-                    <input type="submit" value="Añadir">
+                    <input type="hidden" name="id" value="<?php echo $id; ?>"><br>
+                    <input type="submit" name="submit" value="Añadir">
                 </form>
+                <?php
+                if (isset($_POST['submit'])) {
+                    require_once '../model/postsDAO.php';
+                    $posts1 = new PostsDao();
+                    $posts1->insertarPosts($id);
+                }
+                ?>
             </div>
         </div>
     </div>

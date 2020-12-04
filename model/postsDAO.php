@@ -61,8 +61,8 @@ class PostsDao{
         echo "<table style='width: 100%';>";
             echo "<tr>";
                 echo "<th>Nombre</th>";
-                echo "<th>Primer Apellido</th>";
-                echo "<th>Segundo Apellido</th>";
+                echo "<th>Email</th>";
+                echo "<th>Perfil</th>";
                 echo "<th>Estado</th>";
             echo "</tr>";
         foreach($lista as $usuario) {
@@ -74,13 +74,59 @@ class PostsDao{
             echo "<br>";
         }
             $id=$usuario['id'];
+            $status=$usuario['status'];
             echo "<td>{$usuario['name']}</td>";
             echo "<td>{$usuario['email']}</td>";
             echo "<td>{$usuario['profile']}</td>";
+            echo "<td><a href='../controller/actualizar.php?id=".$id."&status=".$status."'><i onclick='cambiarIcon()' id='block' class='fas fa-lock-open'></i></a></td>";
             $id=$usuario['id'];
+            $status=$usuario['status'];
             echo "</tr>";
         }
             echo "</table>";
-    } 
+    }
+
+    public function insertarPosts($id){
+        require_once '../model/connection.php';
+        include '../controller/sessionController.php';
+        $id = $_SESSION['user']->getId();
+        $title = $_POST['title'];
+        $path = 'public/'.$_FILES['img']['name'];
+            if (move_uploaded_file($_FILES['img']['tmp_name'], '../'.$path)) {
+            /* el ID del user se ha de colocar de manera correcta y no de manera hardcodeada */
+            $query = "INSERT INTO posts (title, path, user) VALUES(?,?,?)";
+            $sentencia = $pdo->prepare($query);
+            $sentencia->bindParam(1,$title);
+            $sentencia->bindParam(2,$path);
+            $sentencia->bindParam(3,$id);
+            $sentencia->execute();
+            header("Location: ../view/home.php");
+        }
+    }
+
+    public function actualizar($id, $status){
+        try {
+        include '../model/connection.php';
+        $pdo->beginTransaction();
+        if ($status == 1) {
+            $query = "UPDATE users SET `status` = '0' WHERE id = ?";
+            $sentencia1=$pdo->prepare($query);
+            $sentencia1->bindParam(1,$id);
+            $sentencia1->execute();
+            $pdo->commit();
+            header("Location: ../view/adminUsers.php");
+        } else {
+            $query = "UPDATE users SET `status` = '1' WHERE id = ?";
+            $sentencia1=$pdo->prepare($query);
+            $sentencia1->bindParam(1,$id);
+            $sentencia1->execute();
+            $pdo->commit();
+            header("Location: ../view/adminUsers.php");
+            }
+        } catch (Exception $ex) {
+            $pdo->rollback();
+            echo $ex->getMessage();
+        }
+    }
 }
 ?>

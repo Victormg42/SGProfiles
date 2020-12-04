@@ -50,3 +50,8 @@ function validarFor() {
         return false;
     }
 }
+
+function cambiarIcon() {
+    document.getElementById("block").className = "fas fa-lock";
+}
+window.onload = cambiarIcon;

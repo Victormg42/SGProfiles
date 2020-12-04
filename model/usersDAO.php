@@ -21,6 +21,7 @@ class UsersDao{
             $user->setEmail($result['email']);
             $user->setId($result['id']);
             $user->setProfile($result['profile']);
+            $user->setStatus($result['status']);
             //Creamos la sesion
             session_start();
             $_SESSION['user']=$user;

@@ -52,6 +52,9 @@ function validarFor() {
 }
 
 function cambiarIcon() {
-    document.getElementById("block").className = "fas fa-lock";
+    if (document.getElementById("block").className == "fas fa-lock-open") {
+        document.getElementById("block").className = "fas fa-lock";
+    } else {
+        document.getElementById("block").className = "fas fa-lock-open";
+    }
 }
-window.onload = cambiarIcon;

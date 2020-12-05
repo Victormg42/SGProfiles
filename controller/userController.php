@@ -7,7 +7,8 @@ require_once '../controller/sessionController.php';
 $profile = $_SESSION['user']->getProfile();
 $status = $_SESSION['user']->getStatus();
 if ($status == 0) {
-    header('Location: ../view/login.php');
+    echo "El usuario esta bloqueado actualmente<br>";
+    echo "<button><a style='text-decoration: none; color: black;' href='../view/login.php'>Volver</a></button>";
 } else {
     if ($profile == '1') {
         header('Location: ../view/home.php');

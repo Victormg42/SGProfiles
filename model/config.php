@@ -3,5 +3,5 @@
 define("BD","bd_gallery");
 define("SERVIDOR","localhost");
 define("USER","root");
-define("PASSWORD","qweQWE123");
+define("PASSWORD","");
 ?>

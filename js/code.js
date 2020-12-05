@@ -50,11 +50,3 @@ function validarFor() {
         return false;
     }
 }
-
-function cambiarIcon() {
-    if (document.getElementById("block").className == "fas fa-lock-open") {
-        document.getElementById("block").className = "fas fa-lock";
-    } else {
-        document.getElementById("block").className = "fas fa-lock-open";
-    }
-}

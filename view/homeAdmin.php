@@ -33,20 +33,30 @@ include '../controller/sessionController.php';
                 <h2>Crear posts</h2>
             </div>
             <div class="modal-body">
-                <form action="../controller/postController.php" method="POST" enctype="multipart/form-data">
+                <form action="homeAdmin.php" method="POST" enctype="multipart/form-data">
                     <input type="text" id="title" name="title" placeholder="título de la foto..">
                     <input type="file" id="img" name="img">
                     <input type="submit" value="Añadir">
                 </form>
+                <?php
+                if (isset($_POST['submit'])) {
+                    require_once '../model/postsDAO.php';
+                    $posts1 = new PostsDao();
+                    $posts1->insertarPosts($id);
+                }
+                ?>
             </div>
         </div>
     </div>
 
     <!--Galería-->
-    <div class="row">
-        <div class="three-column">
-            <img src="../public/sol.jpg" alt="">
-        </div>
+    <div class="row padding-20"></div>
+    <div class="row padding-lat">
+    <?php
+            require_once '../model/postsDAO.php';
+            $posts = new PostsDao();
+            $posts->mostrar();
+        ?>
     </div>
 </body>
 

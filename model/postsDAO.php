@@ -88,7 +88,14 @@ class PostsDao{
             echo "<td>{$usuario['name']}</td>";
             echo "<td>{$usuario['email']}</td>";
             echo "<td>{$usuario['profile']}</td>";
-            echo "<td><a href='../controller/actualizar.php?id=".$id."&status=".$status."'><i onclick='cambiarIcon()' id='block' class='fas fa-lock-open'></i></a></td>";
+            if ($usuario['profile'] == 3) {
+                echo "<td><i onclick='cambiarIcon()' id='block' class='fas fa-lock juan'></i></td>";
+            }
+            else if ($usuario['status'] == 1) {
+                echo "<td><a style='text-decoration: none'; 'color: blue';' href='../controller/actualizar.php?id=".$id."&status=".$status."'><i onclick='cambiarIcon()' id='block' class='fas fa-lock-open'></i></a></td>";
+            } else if ($usuario['status'] == 0) {
+                echo "<td><a href='../controller/actualizar.php?id=".$id."&status=".$status."'><i onclick='cambiarIcon()' id='block' class='fas fa-lock'></i></a></td>";
+            }
             $id=$usuario['id'];
             $status=$usuario['status'];
             echo "</tr>";
@@ -118,20 +125,20 @@ class PostsDao{
         try {
         include '../model/connection.php';
         $pdo->beginTransaction();
-        if ($status == 1) {
-            $query = "UPDATE users SET `status` = '0' WHERE id = ?";
-            $sentencia1=$pdo->prepare($query);
-            $sentencia1->bindParam(1,$id);
-            $sentencia1->execute();
-            $pdo->commit();
-            header("Location: ../view/adminUsers.php");
-        } else {
-            $query = "UPDATE users SET `status` = '1' WHERE id = ?";
-            $sentencia1=$pdo->prepare($query);
-            $sentencia1->bindParam(1,$id);
-            $sentencia1->execute();
-            $pdo->commit();
-            header("Location: ../view/adminUsers.php");
+            if ($status == 1) {
+                $query = "UPDATE users SET `status` = '0' WHERE id = ?";
+                $sentencia1=$pdo->prepare($query);
+                $sentencia1->bindParam(1,$id);
+                $sentencia1->execute();
+                $pdo->commit();
+                header("Location: ../view/adminUsers.php");
+            } else {
+                $query = "UPDATE users SET `status` = '1' WHERE id = ?";
+                $sentencia1=$pdo->prepare($query);
+                $sentencia1->bindParam(1,$id);
+                $sentencia1->execute();
+                $pdo->commit();
+                header("Location: ../view/adminUsers.php");
             }
         } catch (Exception $ex) {
             $pdo->rollback();

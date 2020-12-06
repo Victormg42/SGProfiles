@@ -204,7 +204,11 @@ input[type=submit]:hover {
     color: transparent;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: red;
-  }
+}
+
+.img1 {
+    border: 6px solid red;
+}
 
 @media only screen and (max-width: 700px) {
     .three-column {

@@ -21,7 +21,11 @@ class PostsDao{
             echo "<br>";
         }
             $id=$posts['id'];
-            echo "<img src='../{$posts['path']}'>";
+            if ($posts['user'] == $_SESSION['user']->getId()) {
+                echo "<img class='img1' src='../{$posts['path']}'>";
+            } else {
+                echo "<img src='../{$posts['path']}'>";
+            }
             echo "</div>";
         }
     }

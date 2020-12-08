@@ -6,6 +6,7 @@ class PostsDao{
     }
 
     public function mostrar(){
+        // Utilizaremos una consulta de select para poder visualizar todas las imagenes por pantalla. //
         include '../model/connection.php';
         $query = "SELECT * FROM posts";
         $sentencia=$pdo->prepare($query);
@@ -21,6 +22,7 @@ class PostsDao{
             echo "<br>";
         }
             $id=$posts['id'];
+            // Indicamos que si el id del usuario de la tabla posts es igual al id del usuario que ha iniciado sesión, que le marque sus imagenes con un borde.//
             if ($posts['user'] == $_SESSION['user']->getId()) {
                 echo "<img class='img1' src='../{$posts['path']}'>";
             } else {
@@ -39,6 +41,7 @@ class PostsDao{
             $select = "SELECT * FROM users WHERE email = '$email'";
             $sentencia1=$pdo->prepare($select);
             $sentencia1->execute();
+            //Si la consulta da 0 resultados, significa que el correo introducido no existe, por lo tanto hacemos el insert en la base de datos.//
             if ($sentencia1->rowCount() == 0) {
                 $query="INSERT INTO `users` (`id`, `name`, `surname` , `email`, `password`, `status`, `profile`) VALUES (NULL,?,?,?,?,'1','1');";
                 $sentencia=$pdo->prepare($query);
@@ -54,6 +57,7 @@ class PostsDao{
                 $pdo->commit();
                 header("Location: ../view/login.php");
             } else {
+                //Sino, mostramos un mensaje indicando que el correo ya existe.//
                 echo "<div style='text-align: center; margin-top: -30px; background-color: white; width: 50%; margin-left: 330px;'>El email introducido ya existe</div>";
             }
 
@@ -66,6 +70,7 @@ class PostsDao{
     }
 
     public function mostrarUsuarios(){
+        //Función para mostrar los usuarios en la pagina del admin//
         include '../model/connection.php';
         $query = "SELECT * FROM users";
         $sentencia=$pdo->prepare($query);
@@ -92,11 +97,14 @@ class PostsDao{
             echo "<td>{$usuario['name']}</td>";
             echo "<td>{$usuario['email']}</td>";
             echo "<td>{$usuario['profile']}</td>";
+            //Si el perfil del usuario es 3 (Administrador), bloquearemos su icono, para que el mismo no se pueda editar.//
             if ($usuario['profile'] == 3) {
                 echo "<td><i onclick='cambiarIcon()' id='block' class='fas fa-lock juan'></i></td>";
             }
+            //Si el status del usuario es 1 (No bloqueado), muestra el candado abierto//
             else if ($usuario['status'] == 1) {
                 echo "<td><a style='text-decoration: none'; 'color: blue';' href='../controller/actualizar.php?id=".$id."&status=".$status."'><i onclick='cambiarIcon()' id='block' class='fas fa-lock-open'></i></a></td>";
+                //Si el status del usuario es 0 (Bloqueado), muestra el candado cerrado//
             } else if ($usuario['status'] == 0) {
                 echo "<td><a href='../controller/actualizar.php?id=".$id."&status=".$status."'><i onclick='cambiarIcon()' id='block' class='fas fa-lock'></i></a></td>";
             }
@@ -108,13 +116,13 @@ class PostsDao{
     }
 
     public function insertarPosts($id){
+        //Recogemos el id a través de la variable, para luego insertarlo mediante el bindParam.//
         require_once '../model/connection.php';
         include '../controller/sessionController.php';
         $id = $_SESSION['user']->getId();
         $title = $_POST['title'];
         $path = 'public/'.$_FILES['img']['name'];
             if (move_uploaded_file($_FILES['img']['tmp_name'], '../'.$path)) {
-            /* el ID del user se ha de colocar de manera correcta y no de manera hardcodeada */
             $query = "INSERT INTO posts (title, path, user) VALUES(?,?,?)";
             $sentencia = $pdo->prepare($query);
             $sentencia->bindParam(1,$title);
@@ -129,6 +137,7 @@ class PostsDao{
         try {
         include '../model/connection.php';
         $pdo->beginTransaction();
+        // Si el status es 1, tendremos que actualizar el valor a 0, y si es 0 lo actualizaremos a 1.//
             if ($status == 1) {
                 $query = "UPDATE users SET `status` = '0' WHERE id = ?";
                 $sentencia1=$pdo->prepare($query);

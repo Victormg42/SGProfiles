@@ -8,6 +8,7 @@ class UsersDao{
     }
 
     public function login($user){
+        // Ejecutamos la consulta para el login del usuario.//
         $query = "SELECT * FROM users WHERE email=? AND password=?";
         $sentencia=$this->pdo->prepare($query);
         $email=$user->getEmail();

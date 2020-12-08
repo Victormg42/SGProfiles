@@ -4,7 +4,7 @@ window.onload = function() {
     document.getElementById('password1').addEventListener("focusout", comprobarClave);
 }
 
-// When the user clicks anywhere outside of the modal, close it
+// Cuando el usuario haga click fuera de la ventana modal, esta se cierre.
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
@@ -19,6 +19,7 @@ function closeModal() {
     modal.style.display = "none";
 }
 
+// Comprobamos que las contraseñas introducidas coincidan en los dos campos, para poder validarla correctamente. //
 function comprobarClave() {
     var clave1 = document.getElementById("password");
     var clave2 = document.getElementById("password1");

@@ -19,7 +19,7 @@
     <ul>
         <li><a><?php echo $_SESSION['user']->getEmail() ?></a></li>
         <li><a onclick="openModal()">+</a></li>
-        <li><a href="../view/login.php">logout</a></li>
+        <li><a href="../controller/logoutController.php">logout</a></li>
     </ul>
 
     <!-- The Modal -->
